@@ -1,3 +1,11 @@
+# PathfinderVisualizer
+### Tools used in this project :
+  ReactJS , Hooks API , Canvas API , Material-ui
+### What I learned from this project :
+  I understood all the concepts behind all the pathfinding algorithms
+  I learned more about ReactJS and Canvas API
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -66,4 +74,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-# PathfinderVisualizer
+
