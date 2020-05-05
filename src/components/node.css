@@ -1,0 +1,31 @@
+:root
+{
+    --main-color : #114064;
+}
+@keyframes example {
+    from {background-color: whitesmoke;}
+    to {background-color: #114064;}
+  }
+.node
+{
+    height: 25px;
+    width: 25px;
+    border: solid 1px whitesmoke ;
+    align-items: center;
+    cursor: auto;
+    
+    
+}
+@keyframes animation {
+  from {background-color: #fff;}
+  to {background-color: var(--main-color);}
+}
+
+/* The element to apply the animation to */
+.barrier {
+ 
+  background-color: var(--main-color);
+  animation-name: animation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+}

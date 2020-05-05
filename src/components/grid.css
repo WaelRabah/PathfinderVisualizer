@@ -1,0 +1,13 @@
+#row
+{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+#grid
+{
+    margin-top: 30px;
+    margin-left: 2.4%;
+}
+

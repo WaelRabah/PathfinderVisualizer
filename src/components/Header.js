@@ -7,29 +7,27 @@ function Header() {
     const open = ()=>setMenuOpen(true)
     const close = ()=>setMenuOpen(false)
     const MyButton = styled(Button)({
-        background: `linear-gradient(45deg, ${colors.yellow['500']} 30%, ${colors.amber['600']} 90%)`,
-        border: 0,
+        background: `#114064`,
+        border: 'solid 1px #fff',
         borderRadius: 3,
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-        color: 'black',
+        
+        color: 'white',
         height: 48,
-        padding: '0 30px',
-        marginLeft : 150
+        padding: '0px 30px',
+        marginLeft : 100 ,
+        padding : '0px 80px'
       });
     const MyAppBar = styled(AppBar)({
-       background : colors.blueGrey['900']
+       backgroundColor : '#114064'
+       ,
       });
-      const MyMenuItem = styled(MenuItem)(
-        {
-            background : colors.yellow['500']
-        }
-    )
+      
       
     return (
        <MyAppBar position='static' >
             <Toolbar>
-            <MyButton onClick={open} >Algorithms <KeyboardArrowDown /></MyButton>
-            <anchorEl />
+            <MyButton onClick={open}  >  Algorithms  <KeyboardArrowDown /></MyButton>
+           
             <Menu
   id="fade-menu"
   anchorEl={menuOpen}
