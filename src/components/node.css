@@ -2,30 +2,69 @@
 {
     --main-color : #114064;
 }
-@keyframes example {
-    from {background-color: whitesmoke;}
-    to {background-color: #114064;}
-  }
 .node
 {
-    height: 25px;
-    width: 25px;
-    border: solid 1px whitesmoke ;
+    height: 24px;
+    width: 24px;
+    border: solid 1px #dcdcdc ;
     align-items: center;
     cursor: auto;
     
     
 }
 @keyframes animation {
-  from {background-color: #fff;}
-  to {background-color: var(--main-color);}
-}
+  from{
+   
+    opacity: 0;
+  }
+ 
+  to{
 
+    opacity: 1;
+  }
+}
 /* The element to apply the animation to */
 .barrier {
- 
-  background-color: var(--main-color);
+    background-color: var(--main-color);
+    animation-name: animation;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  
+}
+.start
+{
+  background-color: #ebd408;
   animation-name: animation;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+  text-align: center;
+  padding-top: 1.3px;
+  box-sizing: border-box;
+}
+.end
+{
+  background-color: black;
+  animation-name: animation;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+  color: whitesmoke;
+  text-align: center;
+  padding-top: 1.3px;
+  box-sizing: border-box;
+  
 }

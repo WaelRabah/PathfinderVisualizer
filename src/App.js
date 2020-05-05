@@ -5,7 +5,7 @@ import { Container, Box } from "@material-ui/core";
 import Grid from "./components/Grid";
 
 export default class App extends Component {
-  state = { grid: [], mousePressed: false };
+  state = { grid: [], mousePressed: false,startNode : {x:5,y:10} ,endNode : {x:13,y:29} };
   componentDidMount() {
     var grid1 = [];
     for (let i = 0; i < 16; i++) {
@@ -15,10 +15,14 @@ export default class App extends Component {
           x: i,
           y: j,
           type: "",
+          
         });
       }
       grid1.push(a);
     }
+    grid1[this.state.startNode.x][this.state.startNode.y].type='start'
+    grid1[this.state.endNode.x][this.state.endNode.y].type='end'
+
     this.setState({ grid: grid1 });
   }
   mouseUp = () => {
