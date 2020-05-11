@@ -3,7 +3,7 @@ import {AppBar, Toolbar, Button   }  from  '@material-ui/core'
 import { KeyboardArrowDown } from '@material-ui/icons'
 import { styled } from '@material-ui/core/styles';
 import  './header.css'
-function Header({setAlgorithm}) {
+function Header({setAlgorithm,visualize}) {
 
     const MyAppBar = styled(AppBar)({
        backgroundColor : '#114064'
@@ -39,7 +39,10 @@ function Header({setAlgorithm}) {
             </div>
             
             <div className='btn-cover'>
-            <button className='btn'>Visualize</button>
+            <button 
+            className='btn'
+            onClick={visualize}
+            >Visualize</button>
             </div>
             </MyToolBar>
        </MyAppBar>

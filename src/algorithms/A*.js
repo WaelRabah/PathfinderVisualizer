@@ -1,29 +1,8 @@
-var grid =[]
-
 const euclideanDistance = (A,B)=>
 {
     var c = (B.x-A.x)*(B.x-A.x) + (B.y-A.y)*(B.y-A.y)    
 
     return (c)
-}
-for (var i=0;i<16 ; i++)
-{
-    grid.push([])
-    for (var j=0;j<32 ; j++)
-    {
-         grid[i]
-         .push(
-             {
-                 x : i ,
-                 y : j ,
-                 type : '',
-                 f : null ,
-                 g : null ,
-                 h : null ,
-                 
-             }
-         )   
-    }
 }
 function minNode (list)
 {
@@ -75,7 +54,7 @@ function generateChildren (grid , current,close,open,endPoint)
                
                const x = current.x+item.dx
                const y = current.y+item.dy
-            if (x<16 && y < 32 && x>= 0 && y >= 0)
+            if (x<16 && y < 36 && x>= 0 && y >= 0)
             {
                 const node = grid[x][y]
                 

@@ -8,7 +8,7 @@ export default class App extends Component {
   state = { 
     grid: [], 
     mousePressed: false, 
-    startNode: { x: 5, y: 10 }, 
+    startNode: { x: 0, y: 34 }, 
     endNode: { x: 13, y: 29 } ,
     algorithm : '' ,
     
@@ -92,10 +92,22 @@ export default class App extends Component {
     
     this.setState({ grid: grid1 });
   }
+  visualize = ()=>{
+    const {startNode , endNode , grid} = this.state
+    const path =findShortestPath(grid , grid[startNode.x][startNode.y],grid[endNode.x][endNode.y])
+    const grid1 = this.state.grid
+    path.forEach(node=>{
+      grid1[node.x][node.y].type='barrier'
+    })
+    this.setState({grid : grid})
+  }
   render() {
     return (
       <Box>
-        <Header setAlgorithm={this.setAlgorithm} algorithm={this.state.algorithm} />
+        <Header 
+        setAlgorithm={this.setAlgorithm} 
+        visualize={this.visualize}
+         />
         <Container>
         <div className='dashboard'>
           <div className='algorithm'>{this.state.algorithm && 'Selected algorithm :'} {this.state.algorithm}</div>
