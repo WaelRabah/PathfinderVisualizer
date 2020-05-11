@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+.algorithm
+{
+  font-weight: bolder;
+  font-family: monospace;
+  color: #114064;
+  flex : 1 ;
+  margin-top: 13px;
+}
+.dashboard
+{
+  display: flex;
+  
+  margin-top: 20px;
+  margin-left: 2.4%;
+ 
+}

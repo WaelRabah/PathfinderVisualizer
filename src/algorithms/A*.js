@@ -137,4 +137,4 @@ function findShortestPath (grid,startPoint,endPoint)
     
    } 
 }
-findShortestPath(grid,grid[0][0],grid[15][31]).forEach(item=>console.log(item))
+export {findShortestPath}

@@ -15,12 +15,14 @@
 @keyframes animation {
   from{
    
-    opacity: 0;
+    
+    border: solid 1px #dcdcdc ;
   }
  
   to{
 
-    opacity: 1;
+   
+    border: solid 1px var(--main-color) ;
   }
 }
 /* The element to apply the animation to */
@@ -39,32 +41,12 @@
 .start
 {
   background-color: #ebd408;
-  animation-name: animation;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
-  text-align: center;
-  padding-top: 1.3px;
-  box-sizing: border-box;
+  border: solid 1px #ebd408 ;
+  
 }
 .end
 {
   background-color: black;
-  animation-name: animation;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
-  color: whitesmoke;
-  text-align: center;
-  padding-top: 1.3px;
-  box-sizing: border-box;
-  
+ 
+  border: solid 1px black ;
 }
