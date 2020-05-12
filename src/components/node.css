@@ -1,14 +1,16 @@
 :root
 {
     --main-color : #114064;
+    --a : 30px;
 }
 .node
 {
-    height: 24px;
-    width: 24px;
+    height: var(--a);
+    width: var(--a);
     border: solid 1px #dcdcdc ;
     align-items: center;
     cursor: auto;
+    
     
     
 }
@@ -40,13 +42,48 @@
 }
 .start
 {
-  background-color: #ebd408;
-  border: solid 1px #ebd408 ;
+  background-image: url('start.png');
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 35px;
+  border: solid 1px whitesmoke ;
   
 }
 .end
 {
-  background-color: black;
+  
+  background-image: url('end.png');
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 32px;
+  border: solid 1px whitesmoke ;
+}
+@keyframes pathAnimation {
+  from{
+   
+    
+    background-color: #32CD32 ;
+    transform: scale(0.3);
+  }
  
-  border: solid 1px black ;
+  to{
+
+   
+    background-color: #008c8c;
+    transform: scale(1.0);
+  }
+}
+.path
+{
+  background-color: #008c8c;
+ 
+  border: solid 1px #008c8c ;
+  animation-name: pathAnimation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
 }

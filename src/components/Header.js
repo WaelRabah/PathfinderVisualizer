@@ -29,8 +29,8 @@ function Header({setAlgorithm,visualize}) {
               <div className={`dropdownContent`}>
               {
                 Algorithms.map(
-                  algo=>(
-                    <div className='algo' onClick={()=>setAlgorithm(algo)}>{algo}</div>
+                  (algo,index)=>(
+                    <div key={index} className='algo' onClick={()=>setAlgorithm(algo)}>{algo}</div>
                   )
                 )
               }

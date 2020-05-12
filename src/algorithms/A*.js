@@ -58,7 +58,7 @@ function generateChildren (grid , current,close,open,endPoint)
             {
                 const node = grid[x][y]
                 
-                if (isIn(close,node))
+                if (isIn(close,node) || (node.type==='barrier'))
                 {
                     return 
                 }
@@ -100,7 +100,7 @@ function findShortestPath (grid,startPoint,endPoint)
     close.push(current)
     if (current.x===endPoint.x && current.y===endPoint.y)
     {
-        const path = []
+        var path = []
         var currentNode = current
         while (typeof currentNode !== 'undefined')
         {
@@ -108,7 +108,10 @@ function findShortestPath (grid,startPoint,endPoint)
                 currentNode=currentNode.parent
 
         }
-        return path.reverse()
+        path=path.reverse()
+        path.splice(0,1)
+        path.splice(path.length -1 ,1)
+        return path
     }
     const {open1 , grid1}=generateChildren(grid,current,close,open,endPoint)
     open = open1

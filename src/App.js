@@ -8,9 +8,10 @@ export default class App extends Component {
   state = { 
     grid: [], 
     mousePressed: false, 
-    startNode: { x: 0, y: 34 }, 
-    endNode: { x: 13, y: 29 } ,
+    startNode: { x: 2, y: 5 }, 
+    endNode: { x: 2, y: 29 } ,
     algorithm : '' ,
+    path : []
     
   };
   componentDidMount() {
@@ -39,7 +40,7 @@ export default class App extends Component {
     });
   };
   mouseDown = (x, y) => {
-
+    this.clearPath()
     const { grid } = this.state;
     if (grid[x][y].type === "start" || grid[x][y].type === "end")
       return
@@ -62,6 +63,7 @@ export default class App extends Component {
   toggleBarrier = (x, y) => {
     
     if (this.state.mousePressed) {
+      
       const { grid } = this.state;
       if (grid[x][y].type === "start" || grid[x][y].type === "end")
       return
@@ -72,6 +74,14 @@ export default class App extends Component {
 
     }
   };
+  clearPath = ()=>{
+      var {path,grid} = this.state
+      path.forEach(node=>{
+        grid[node.x][node.y].type=''
+      })
+      
+      this.setState({grid : grid,path:[]})
+  }
   clearGrid = ()=>{
     
     var grid1 = [];
@@ -90,16 +100,25 @@ export default class App extends Component {
     grid1[this.state.startNode.x][this.state.startNode.y].type = 'start'
     grid1[this.state.endNode.x][this.state.endNode.y].type = 'end'
     
-    this.setState({ grid: grid1 });
+    this.setState({ grid: grid1 ,path : [] });
   }
   visualize = ()=>{
     const {startNode , endNode , grid} = this.state
-    const path =findShortestPath(grid , grid[startNode.x][startNode.y],grid[endNode.x][endNode.y])
-    const grid1 = this.state.grid
+    this.clearPath()
+    var path =[]
+    path = findShortestPath(grid , grid[startNode.x][startNode.y],grid[endNode.x][endNode.y])
+    console.log(path)
+    this.setState(
+      {
+        path : path
+      }
+    )
+    
+    const grid1 =this.state.grid
     path.forEach(node=>{
-      grid1[node.x][node.y].type='barrier'
+      grid1[node.x][node.y].type='path'
     })
-    this.setState({grid : grid})
+    this.setState({grid : grid1})
   }
   render() {
     return (
@@ -115,6 +134,9 @@ export default class App extends Component {
         <button className='btn1' onClick={this.clearGrid}>
             Clear Grid
         </button>
+        <button className='btn1' onClick={this.clearPath}>
+        Clear Path
+    </button>
         </div>
         </div>
        
