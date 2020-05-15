@@ -3,6 +3,7 @@ import './node.css'
 const Node=({node : {type,x,y},toggleBarrier,MouseDown,MouseUp,onDragHandler})=> {
     return (
         <div 
+        id={`node${x}${y}`}
         className={`node ${type}`}
         onMouseUp={(e)=>{  MouseUp()}}
         onMouseDown={(e)=>{ e.preventDefault(); MouseDown(x,y)}}

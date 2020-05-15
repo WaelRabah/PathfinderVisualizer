@@ -11,14 +11,17 @@ export default class App extends Component {
     startNode: { x: 2, y: 5 }, 
     endNode: { x: 2, y: 29 } ,
     algorithm : '' ,
-    path : []
+    path : [],
+    gridSize : {h : 22 , w : 42},
+    visited : [] ,
+    visitedFinished : false
     
   };
   componentDidMount() {
     var grid1 = [];
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < this.state.gridSize.h; i++) {
       var a = [];
-      for (var j = 0; j < 36; j++) {
+      for (var j = 0; j < this.state.gridSize.w; j++) {
         a.push({
           x: i,
           y: j,
@@ -75,51 +78,115 @@ export default class App extends Component {
     }
   };
   clearPath = ()=>{
-      var {path,grid} = this.state
-      path.forEach(node=>{
-        grid[node.x][node.y].type=''
-      })
-      
-      this.setState({grid : grid,path:[]})
+    var {visited,grid} = this.state
+    visited.forEach(node=>{
+      grid[node.x][node.y].type=''
+      const node1=document.getElementById(`node${node.x}${node.y}`)  
+      node1.className='node'
+    })
+    this.setState({grid : grid,path:[],visited : []})
   }
+  // clearPath = ()=>{
+  //     var {path,grid} = this.state
+  //     path.forEach(node=>{
+  //       grid[node.x][node.y].type=''
+  //       const node1=document.getElementById(`node${node.x}${node.y}`)  
+  //       node1.className='node'
+  //     })
+      
+  //     this.setState({grid : grid,path:[]})
+  // }
   clearGrid = ()=>{
     
     var grid1 = [];
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < this.state.gridSize.h; i++) {
       var a = [];
-      for (var j = 0; j < 36; j++) {
+      for (var j = 0; j < this.state.gridSize.w; j++) {
         a.push({
           x: i,
           y: j,
           type: "",
 
         });
+        const node1 = document.getElementById(`node${i}${j}`)
+        node1.className=`node`
       }
       grid1.push(a);
     }
     grid1[this.state.startNode.x][this.state.startNode.y].type = 'start'
     grid1[this.state.endNode.x][this.state.endNode.y].type = 'end'
-    
+    const node1 = document.getElementById(`node${this.state.startNode.x}${this.state.startNode.y}`)
+    node1.className=`node start`
+    const node2 = document.getElementById(`node${this.state.endNode.x}${this.state.endNode.y}`)
+    node2.className=`node end`
     this.setState({ grid: grid1 ,path : [] });
   }
-  visualize = ()=>{
+  visualize =async ()=>{
     const {startNode , endNode , grid} = this.state
     this.clearPath()
-    var path =[]
-    path = findShortestPath(grid , grid[startNode.x][startNode.y],grid[endNode.x][endNode.y])
-    console.log(path)
+    
+  const  ret =await findShortestPath(grid , grid[startNode.x][startNode.y],grid[endNode.x][endNode.y],this.state.gridSize)
+    
+    var {path,visited} = ret
+    
     this.setState(
       {
-        path : path
+        path : path ,
+        visited : visited
+        
       }
+        
     )
+    this.animateVisited()
+    if (this.state.visitedFinished)
+    {
+      this.animatePath()
+    }
     
-    const grid1 =this.state.grid
-    path.forEach(node=>{
-      grid1[node.x][node.y].type='path'
-    })
-    this.setState({grid : grid1})
+    
+    
+
+
   }
+  animatePath = ()=>{
+    
+    const { grid , path } = this.state
+    
+    for (let i=0;i<path.length ; i++)
+    {
+      const node = path[i]
+      const node1 = document.getElementById(`node${node.x}${node.y}`)
+      setTimeout(()=>{
+        grid[node.x][node.y].type='path'
+        node1.className='node path'
+    },i*65)
+      
+    }
+    this.setState({grid : grid})
+    
+  }
+  animateVisited = async ()=>{
+    const { grid , visited } = this.state
+    
+        for (let i=0;i<visited.length ; i++)
+        {
+          
+          const node = visited[i]
+          const node1 = document.getElementById(`node${node.x}${node.y}`)
+          
+          setTimeout(()=>{
+            if (node.type==='path')
+            {
+              return
+            }
+            grid[node.x][node.y].type='visited'
+            node1.className='node visited'
+        },i*1)
+          
+        }
+    
+        this.setState({grid : grid , visitedFinished : true})
+      }
   render() {
     return (
       <Box>

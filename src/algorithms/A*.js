@@ -42,19 +42,23 @@ function isIn (l,node)
     }
     return false
 }
-function generateChildren (grid , current,close,open,endPoint)
+function generateChildren (grid , current,close,open,endPoint,gridSize)
 {
-       const children=[
-         {dx : 0 , dy : 1 },{dx : 0 , dy : -1 }
-        ,{dx : 1 , dy : 1 },{dx : 1 , dy : -1 }
-        ,{dx : -1 , dy : 1 },{dx : -1 , dy : -1 }
-        ,{dx : 1 , dy : 0 },{dx : -1 , dy : 0 }]
+    //    const children=[
+    //      {dx : 0 , dy : 1 },{dx : 0 , dy : -1 }
+    //     ,{dx : 1 , dy : 1 },{dx : 1 , dy : -1 }
+    //     ,{dx : -1 , dy : 1 },{dx : -1 , dy : -1 }
+    //     ,{dx : 1 , dy : 0 },{dx : -1 , dy : 0 }]
+    
+    const children=[
+        {dx : 0 , dy : 1 },{dx : 0 , dy : -1 }
+       ,{dx : 1 , dy : 0 },{dx : -1 , dy : 0 }]
        children.forEach(
            item=>{
                
                const x = current.x+item.dx
                const y = current.y+item.dy
-            if (x<16 && y < 36 && x>= 0 && y >= 0)
+            if (x<gridSize.h && y < gridSize.w && x>= 0 && y >= 0)
             {
                 const node = grid[x][y]
                 
@@ -82,10 +86,12 @@ function generateChildren (grid , current,close,open,endPoint)
        )
         return {grid1 : grid , open1 : open }
 }
-function findShortestPath (grid,startPoint,endPoint)
+function findShortestPath (grid,startPoint,endPoint,gridSize)
 {  var current = null 
    var open=[]
    var close = [] 
+   var path = []
+   var visited=[]
    
    grid[startPoint.x][startPoint.y].g=0
    grid[startPoint.x][startPoint.y].h=euclideanDistance(grid[startPoint.x][startPoint.y],grid[endPoint.x][endPoint.y])
@@ -94,13 +100,16 @@ function findShortestPath (grid,startPoint,endPoint)
    
    while (open.length > 0)
    {
+    
     const {min,idx} = minNode(open)
     current = min 
+    visited.push(current)
     open=open.filter((val,index)=>index!== idx)
     close.push(current)
     if (current.x===endPoint.x && current.y===endPoint.y)
     {
-        var path = []
+        
+        
         var currentNode = current
         while (typeof currentNode !== 'undefined')
         {
@@ -111,12 +120,17 @@ function findShortestPath (grid,startPoint,endPoint)
         path=path.reverse()
         path.splice(0,1)
         path.splice(path.length -1 ,1)
-        return path
+        visited.splice(0,1)
+        visited.splice(visited.length -1 ,1)
+        const ret = {path , visited}
+        return ret
     }
-    const {open1 , grid1}=generateChildren(grid,current,close,open,endPoint)
+    const {open1 , grid1}=generateChildren(grid,current,close,open,endPoint,gridSize)
     open = open1
     grid = grid1
-    
+   
    } 
+   const ret = {path , visited}
+   return (ret)
 }
 export {findShortestPath}

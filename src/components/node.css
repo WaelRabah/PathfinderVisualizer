@@ -1,7 +1,7 @@
 :root
 {
     --main-color : #114064;
-    --a : 30px;
+    --a : 26px;
 }
 .node
 {
@@ -31,7 +31,7 @@
 .barrier {
     background-color: var(--main-color);
     animation-name: animation;
-    animation-duration: 0.3s;
+    animation-duration: 0.1s;
     animation-timing-function: ease-out;
     animation-delay: 0;
     animation-direction: alternate;
@@ -62,15 +62,28 @@
   from{
    
     
-    background-color: #32CD32 ;
-    transform: scale(0.3);
+    background-color: gray ;
   }
  
   to{
 
    
     background-color: #008c8c;
-    transform: scale(1.0);
+   
+  }
+}
+@keyframes visitedAnimation {
+  from{
+   
+    
+    background-color: yellowgreen ;
+  }
+ 
+  to{
+
+   
+    background-color: yellow;
+   
   }
 }
 .path
@@ -79,9 +92,23 @@
  
   border: solid 1px #008c8c ;
   animation-name: pathAnimation;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-out;
-  animation-delay: 0;
+  animation-delay: 0s;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+.visited
+{
+  background-color: rgb(255, 254, 106);
+ 
+  border: solid 1px rgb(255, 254, 106) ;
+  animation-name: visitedAnimation;
+  animation-duration: 0.05s;
+  animation-timing-function: ease-out;
+  animation-delay: 0s;
   animation-direction: alternate;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
