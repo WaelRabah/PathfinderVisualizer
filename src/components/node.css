@@ -7,7 +7,7 @@
 {
     height: var(--a);
     width: var(--a);
-    border: solid 1px #dcdcdc ;
+    border: solid 1px #dcdcdcf3 ;
     align-items: center;
     cursor: auto;
     
@@ -47,6 +47,7 @@
   background-position-y: center;
   background-size: 35px;
   border: solid 1px whitesmoke ;
+  cursor: pointer;
   
 }
 .end
@@ -57,6 +58,7 @@
   background-position-y: center;
   background-size: 32px;
   border: solid 1px whitesmoke ;
+  cursor: pointer;
 }
 @keyframes pathAnimation {
   from{
@@ -104,7 +106,7 @@
 {
   background-color: rgb(255, 254, 106);
  
-  border: solid 1px rgb(255, 254, 106) ;
+  border: solid 1px #dcdcdcf3 ;
   animation-name: visitedAnimation;
   animation-duration: 0.2s;
   animation-timing-function: ease-out;

@@ -3,18 +3,21 @@ import "./App.css";
 import Header from "./components/Header";
 import { Container, Box } from "@material-ui/core";
 import Grid from "./components/Grid";
-import { findShortestPath } from './algorithms/A*'
+import Astar from './algorithms/A*'
 export default class App extends Component {
   state = { 
     grid: [], 
     mousePressed: false, 
     startNode: { x: 0, y: 0 }, 
     endNode: { x: 2, y: 29 } ,
-    algorithm : '' ,
+    selectedAlgorithm : false ,
     path : [],
     gridSize : {h : 18 , w : 40},
     visited : [] ,
-    visitedFinished : false
+    Algorithms : [{name :'A*' , object : Astar}],
+    algoName : '',
+    moveStart : false ,
+    moveEnd : false
     
   };
   componentDidMount() {
@@ -42,14 +45,24 @@ export default class App extends Component {
   mouseUp = () => {
 
     this.setState({
+      moveStart : false ,
       mousePressed: false,
+      moveEnd : false
     });
   };
   mouseDown = (x, y) => {
     this.clearPath()
     const { grid } = this.state;
-    if (grid[x][y].type === "start" || grid[x][y].type === "end")
-      return
+    if (grid[x][y].type === "start" )
+      {
+        this.setState({moveStart : true})  
+        return
+      }
+    if (grid[x][y].type === "end" )
+      {
+        this.setState({moveEnd : true})  
+        return
+      }
     grid[x][y].type = grid[x][y].type === "barrier" ? "" : "barrier";
     this.setState({
       mousePressed: true,
@@ -60,17 +73,39 @@ export default class App extends Component {
     this.setState({ mousePressed: false })
   }
   setAlgorithm = (algo) => {
+    
         this.setState(
           {
-            algorithm : algo
+            selectedAlgorithm : algo , 
+            algoName : `Selected algorithm : ${algo.name}`
           }
         )
   }
-  toggleBarrier = (x, y) => {
-    
-    if (this.state.mousePressed) {
+  mouseEnter =async (x, y) => {
+    const {grid , startNode , endNode , moveStart , moveEnd , mousePressed} = this.state
+    if (moveStart)
+    {
+      var node = await document.getElementById(grid[startNode.x][startNode.y].id)
+      node.className='node'
+      await this.setState({startNode : {x: x , y: y}})
+
+      var node1 = await document.getElementById(grid[startNode.x][startNode.y].id)
+      node1.className='node start'
       
-      const { grid } = this.state;
+    }
+    if (moveEnd)
+    {
+      var node2 = await document.getElementById(grid[endNode.x][endNode.y].id)
+      node2.className='node'
+      await this.setState({endNode : {x: x , y: y}})
+
+      var node3 = await document.getElementById(grid[endNode.x][endNode.y].id)
+      node3.className='node end'
+      
+    }
+    if (mousePressed) {
+      
+      
       if (grid[x][y].type === "start" || grid[x][y].type === "end")
       return
       grid[x][y].type = grid[x][y].type === "barrier" ? "" : "barrier";
@@ -121,10 +156,14 @@ export default class App extends Component {
     this.setState({ grid: grid1 ,path : [] });
   }
   visualize =async ()=>{
-    const {startNode , endNode , grid} = this.state
+    const {startNode , endNode , grid , selectedAlgorithm} = this.state
+    if (!selectedAlgorithm)
+      {
+         await this.setState({algoName : 'Please select an algorithm'})
+          return
+      }
     this.clearPath()
-    
-  const  ret =await findShortestPath(grid , grid[startNode.x][startNode.y],grid[endNode.x][endNode.y],this.state.gridSize)
+  const  ret =await this.state.selectedAlgorithm.object.search(grid , grid[startNode.x][startNode.y],grid[endNode.x][endNode.y],this.state.gridSize)
     
     var {path,visited} = ret
     
@@ -136,17 +175,8 @@ export default class App extends Component {
       }
         
     )
-   await this.animateVisited()
-      
-    
-      
-    
-    
-    
-    
-
-
-  }
+this.animateVisited()
+}
   animatePath = ()=>{
     
     const { grid , path } = this.state
@@ -197,10 +227,11 @@ export default class App extends Component {
         <Header 
         setAlgorithm={this.setAlgorithm} 
         visualize={this.visualize}
+        Algorithms={this.state.Algorithms}
          />
         <Container>
         <div className='dashboard'>
-          <div className='algorithm'>{this.state.algorithm && 'Selected algorithm :'} {this.state.algorithm}</div>
+          <div className='algorithm'>{this.state.algoName}</div>
         <div className='btn-cover1'>
         <button className='btn1' onClick={this.clearGrid}>
             Clear Grid
@@ -213,7 +244,7 @@ export default class App extends Component {
        
           <Grid
             grid={this.state.grid}
-            toggleBarrier={this.toggleBarrier}
+            MouseEnter={this.mouseEnter}
             MouseDown={this.mouseDown}
             MouseUp={this.mouseUp}
             onDragHandler={this.onDrag}

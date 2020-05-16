@@ -3,7 +3,7 @@ import {AppBar, Toolbar   }  from  '@material-ui/core'
 import { KeyboardArrowDown } from '@material-ui/icons'
 import { styled } from '@material-ui/core/styles';
 import  './header.css'
-function Header({setAlgorithm,visualize}) {
+function Header({setAlgorithm,visualize,Algorithms}) {
 
     const MyAppBar = styled(AppBar)({
        backgroundColor : '#114064'
@@ -16,7 +16,7 @@ function Header({setAlgorithm,visualize}) {
         justifyContent :'space-between'
        });
      
-        const Algorithms = ['A*']
+        
     return (
        <MyAppBar position='static' >
             <MyToolBar>
@@ -30,7 +30,7 @@ function Header({setAlgorithm,visualize}) {
               {
                 Algorithms.map(
                   (algo,index)=>(
-                    <div key={index} className='algo' onClick={()=>setAlgorithm(algo)}>{algo}</div>
+                    <div key={index} className='algo' onClick={()=>setAlgorithm(algo)}>{algo.name}</div>
                   )
                 )
               }

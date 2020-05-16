@@ -1,9 +1,7 @@
 import React from 'react'
 import Node from './Node'
 import './grid.css'
-function Grid({ grid, toggleBarrier, MouseUp, MouseDown , onDragHandler }) {
-    var i=0;
-    
+function Grid({ grid, MouseEnter, MouseUp, MouseDown , onDragHandler }) {
     return (
         <div id='grid'>
 
@@ -15,12 +13,11 @@ function Grid({ grid, toggleBarrier, MouseUp, MouseDown , onDragHandler }) {
                     id='row'>
                     {
                         row.map((node, index1) => {
-                            i++
                             return (
                                 <Node
                                     node={node}
-                                    key={`node${node.x}${node.y}`}
-                                    toggleBarrier={toggleBarrier}
+                                    key={`${node.id}`}
+                                    MouseEnter={MouseEnter}
                                     MouseUp={MouseUp}
                                     MouseDown={MouseDown}
                                     onDragHandler={onDragHandler}
