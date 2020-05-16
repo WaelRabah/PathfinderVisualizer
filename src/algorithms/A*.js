@@ -1,8 +1,10 @@
-const euclideanDistance = (A,B)=>
+const manhattanDistance = (A,B)=>
 {
-    var c = (B.x-A.x)*(B.x-A.x) + (B.y-A.y)*(B.y-A.y)    
+    var d1 = Math.abs (A.x - B.x);
+    var d2 = Math.abs (A.y - B.y);
+    return d1 + d2; 
 
-    return (c)
+    
 }
 function minNode (list)
 {
@@ -64,18 +66,19 @@ function generateChildren (grid , current,close,open,endPoint,gridSize)
                 
                 if (isIn(close,node) || (node.type==='barrier'))
                 {
+                    
                     return 
                 }
-                node.g=current.g+euclideanDistance(node,current)
-                node.h=euclideanDistance(node,endPoint)
+              
+                node.g=current.g+manhattanDistance(node,current)
+                node.h=manhattanDistance(node,endPoint)
                 node.f=node.g+node.h
                 grid[current.x+item.dx][current.y+item.dy] = node
                 if (isIn(open,node))
                 {
-                    if ((node.g) > maxNode(open).max.g)
-                    {
+                   
                         return
-                    }
+                    
                 }
                 node.parent=current
                 open.push(node)
@@ -92,9 +95,9 @@ function findShortestPath (grid,startPoint,endPoint,gridSize)
    var close = [] 
    var path = []
    var visited=[]
-   
+
    grid[startPoint.x][startPoint.y].g=0
-   grid[startPoint.x][startPoint.y].h=euclideanDistance(grid[startPoint.x][startPoint.y],grid[endPoint.x][endPoint.y])
+   grid[startPoint.x][startPoint.y].h=manhattanDistance(grid[startPoint.x][startPoint.y],grid[endPoint.x][endPoint.y])
    grid[startPoint.x][startPoint.y].f=grid[startPoint.x][startPoint.y].g+grid[startPoint.x][startPoint.y].h
    open.push(grid[startPoint.x][startPoint.y])
    

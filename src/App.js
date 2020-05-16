@@ -85,6 +85,7 @@ export default class App extends Component {
       node1.className='node'
     })
     this.setState({grid : grid,path:[],visited : []})
+    
   }
   // clearPath = ()=>{
   //     var {path,grid} = this.state
@@ -137,6 +138,7 @@ export default class App extends Component {
       }
         
     )
+    grid[1].forEach(item=>{console.log(item)})
     this.animateVisited()
     if (this.state.visitedFinished)
     {
