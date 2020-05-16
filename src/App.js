@@ -8,24 +8,27 @@ export default class App extends Component {
   state = { 
     grid: [], 
     mousePressed: false, 
-    startNode: { x: 2, y: 5 }, 
+    startNode: { x: 0, y: 0 }, 
     endNode: { x: 2, y: 29 } ,
     algorithm : '' ,
     path : [],
-    gridSize : {h : 22 , w : 42},
+    gridSize : {h : 18 , w : 40},
     visited : [] ,
     visitedFinished : false
     
   };
   componentDidMount() {
+    let x=0
     var grid1 = [];
     for (let i = 0; i < this.state.gridSize.h; i++) {
       var a = [];
       for (var j = 0; j < this.state.gridSize.w; j++) {
+        x++
         a.push({
           x: i,
           y: j,
           type: "",
+          id : x
 
         });
       }
@@ -80,45 +83,40 @@ export default class App extends Component {
   clearPath = ()=>{
     var {visited,grid} = this.state
     visited.forEach(node=>{
+      if (node.type==='start')
+      return
       grid[node.x][node.y].type=''
-      const node1=document.getElementById(`node${node.x}${node.y}`)  
+      const node1=document.getElementById(`${node.id}`)  
       node1.className='node'
     })
     this.setState({grid : grid,path:[],visited : []})
     
   }
-  // clearPath = ()=>{
-  //     var {path,grid} = this.state
-  //     path.forEach(node=>{
-  //       grid[node.x][node.y].type=''
-  //       const node1=document.getElementById(`node${node.x}${node.y}`)  
-  //       node1.className='node'
-  //     })
-      
-  //     this.setState({grid : grid,path:[]})
-  // }
   clearGrid = ()=>{
     
     var grid1 = [];
+    let x = 0
     for (let i = 0; i < this.state.gridSize.h; i++) {
       var a = [];
       for (var j = 0; j < this.state.gridSize.w; j++) {
+        x++
         a.push({
           x: i,
           y: j,
           type: "",
+          id : x
 
         });
-        const node1 = document.getElementById(`node${i}${j}`)
+        const node1 = document.getElementById(`${x}`)
         node1.className=`node`
       }
       grid1.push(a);
     }
     grid1[this.state.startNode.x][this.state.startNode.y].type = 'start'
     grid1[this.state.endNode.x][this.state.endNode.y].type = 'end'
-    const node1 = document.getElementById(`node${this.state.startNode.x}${this.state.startNode.y}`)
+    const node1 = document.getElementById(`${grid1[this.state.startNode.x][this.state.startNode.y].id}`)
     node1.className=`node start`
-    const node2 = document.getElementById(`node${this.state.endNode.x}${this.state.endNode.y}`)
+    const node2 = document.getElementById(`${grid1[this.state.endNode.x][this.state.endNode.y].id}`)
     node2.className=`node end`
     this.setState({ grid: grid1 ,path : [] });
   }
@@ -138,12 +136,11 @@ export default class App extends Component {
       }
         
     )
-    grid[1].forEach(item=>{console.log(item)})
-    this.animateVisited()
-    if (this.state.visitedFinished)
-    {
-      this.animatePath()
-    }
+   await this.animateVisited()
+      
+    
+      
+    
     
     
     
@@ -157,11 +154,11 @@ export default class App extends Component {
     for (let i=0;i<path.length ; i++)
     {
       const node = path[i]
-      const node1 = document.getElementById(`node${node.x}${node.y}`)
+      const node1 = document.getElementById(`${grid[node.x][node.y].id}`)
       setTimeout(()=>{
         grid[node.x][node.y].type='path'
         node1.className='node path'
-    },i*65)
+    },i*20)
       
     }
     this.setState({grid : grid})
@@ -169,22 +166,27 @@ export default class App extends Component {
   }
   animateVisited = async ()=>{
     const { grid , visited } = this.state
-    
         for (let i=0;i<visited.length ; i++)
         {
+        
           
           const node = visited[i]
-          const node1 = document.getElementById(`node${node.x}${node.y}`)
+          const node1 = document.getElementById(`${node.id}`)
           
           setTimeout(()=>{
-            if (node.type==='path')
+            if (node.type==='path' || node.type==='start')
             {
               return
             }
             grid[node.x][node.y].type='visited'
             node1.className='node visited'
-        },i*1)
+        },i*5)
+        if (i===visited.length-1)
+        {
+          setTimeout(()=>{this.animatePath()},5*i)
+          return
           
+        }
         }
     
         this.setState({grid : grid , visitedFinished : true})

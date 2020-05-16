@@ -1,7 +1,7 @@
 :root
 {
     --main-color : #114064;
-    --a : 26px;
+    --a : 28px;
 }
 .node
 {
@@ -92,7 +92,7 @@
  
   border: solid 1px #008c8c ;
   animation-name: pathAnimation;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: ease-out;
   animation-delay: 0s;
   animation-direction: alternate;
@@ -106,7 +106,7 @@
  
   border: solid 1px rgb(255, 254, 106) ;
   animation-name: visitedAnimation;
-  animation-duration: 0.05s;
+  animation-duration: 0.2s;
   animation-timing-function: ease-out;
   animation-delay: 0s;
   animation-direction: alternate;

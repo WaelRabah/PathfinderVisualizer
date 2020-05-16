@@ -20,20 +20,6 @@ function minNode (list)
   }
   return {min : min , idx : minIdx}
 }
-function maxNode (list)
-{
-  var max =list[0]
-  var maxIdx = 0 
-  for (let i = 1 ; i< list.length ; i++)
-  {
-      if (list[i].g > max.g)
-      {
-          max = list[i]
-          maxIdx = i
-      }
-  }
-  return {max : max , idx : maxIdx}
-}
 function isIn (l,node)
 {
     for (let i =0 ; i<l.length ; i++)

@@ -19,7 +19,7 @@ function Grid({ grid, toggleBarrier, MouseUp, MouseDown , onDragHandler }) {
                             return (
                                 <Node
                                     node={node}
-                                    key={String(i)}
+                                    key={`node${node.x}${node.y}`}
                                     toggleBarrier={toggleBarrier}
                                     MouseUp={MouseUp}
                                     MouseDown={MouseDown}
