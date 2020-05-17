@@ -2,7 +2,7 @@
   "name": "pathfinder-visualizer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://waelrabah.github.io/PathfinderVisualizer",
+  "homepage": "https://waelrabah.github.io/PathfinderVisualizer/",
   "dependencies": {
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
