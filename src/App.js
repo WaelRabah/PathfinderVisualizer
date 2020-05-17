@@ -8,7 +8,7 @@ export default class App extends Component {
   state = { 
     grid: [], 
     mousePressed: false, 
-    startNode: { x: 13, y: 13 }, 
+    startNode: { x: 3, y: 7 }, 
     endNode: { x: 3, y: 10 } ,
     selectedAlgorithm : false ,
     path : [],
@@ -31,7 +31,8 @@ export default class App extends Component {
           x: i,
           y: j,
           type: "",
-          id : x
+          id : x,
+          parent : undefined
 
         });
       }
@@ -85,7 +86,7 @@ export default class App extends Component {
     const {grid , startNode , endNode , moveStart , moveEnd , mousePressed} = this.state
     if (moveStart)
     {
-   
+      this.clearPath()
       grid[startNode.x][startNode.y].type=''
       grid[x][y].type='start'
 
@@ -125,6 +126,7 @@ export default class App extends Component {
       if (node.type==='start')
       return
       grid[node.x][node.y].type=''
+      grid[node.x][node.y].parent=undefined
       const node1=document.getElementById(`${node.id}`)  
       node1.className='node'
     })

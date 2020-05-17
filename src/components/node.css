@@ -1,7 +1,9 @@
 :root
 {
-    --main-color : #114064;
-    --a : 27px;
+    --main-color : #3366cc;
+    --a : 28px;
+    --path-color : #3399FF;
+    --visited-color : #FFF0AA
 }
 .node
 {
@@ -10,7 +12,7 @@
     border: solid 1px #dcdcdcf3 ;
     align-items: center;
     cursor: auto;
-    
+    background-color: #ffffff;
     
     
 }
@@ -19,6 +21,7 @@
    
     
     transform: scale(1.0);
+    
   }
  
   to{
@@ -33,7 +36,7 @@
     width: var(--a);
     border: solid 1px #dcdcdcf3 ;
     align-items: center;
-    cursor: auto;
+    cursor: pointer;
     animation-name: nodeAnimation;
     animation-duration: 0.1s;
     animation-timing-function: ease-out;
@@ -93,39 +96,50 @@
   cursor: pointer;
 }
 @keyframes pathAnimation {
-  from{
+  0%{
    
-    
-    background-color: gray ;
+    transform: scale(1.0);
+  
+  }
+  50%{
+   
+    transform: scale(1.4);
+   
+ 
   }
  
-  to{
+  100%{
 
-   
-    background-color: #008c8c;
+    transform: scale(1.0);
+ 
    
   }
 }
 @keyframes visitedAnimation {
-  from{
+  0%{
    
-    
-    background-color: yellowgreen ;
+    transform: scale(1.0);
+  
+  }
+  50%{
+   
+    transform: scale(1.3);
+   
   }
  
-  to{
+  100%{
 
-   
-    background-color: yellow;
+    transform: scale(1.0);
+  
    
   }
 }
 .path
 {
-  background-color: #008c8c;
-  border: solid 1px #008c8c ;
+  background-color: var(--path-color);
+  border: solid 1px var(--path-color) ;
   animation-name: pathAnimation;
-  animation-duration: 0.1s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-out;
   animation-delay: 0s;
   animation-direction: alternate;
@@ -133,9 +147,10 @@
   animation-fill-mode: forwards;
   animation-play-state: running;
 }
+
 .visited
 {
-  background-color: rgb(255, 254, 106);
+  background-color: var(--visited-color);
  
   border: solid 1px #dcdcdcf3 ;
   animation-name: visitedAnimation;

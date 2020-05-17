@@ -6,11 +6,11 @@ import  './header.css'
 function Header({setAlgorithm,visualize,Algorithms}) {
 
     const MyAppBar = styled(AppBar)({
-       backgroundColor : '#114064'
+       backgroundColor : '#3366cc'
        ,
       });
       const MyToolBar = styled(Toolbar)({
-        backgroundColor : '#114064'
+        backgroundColor : '#3366cc'
         ,
         display : 'flex',
         justifyContent :'space-between'
