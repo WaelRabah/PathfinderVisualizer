@@ -26,7 +26,6 @@ const Astar = {
        
        while (open.length > 0)
        {
-        
         const {min,idx} = Astar.minNode(open)
         current = min 
         visited.push(current)
@@ -35,12 +34,12 @@ const Astar = {
         if (current.x===endPoint.x && current.y===endPoint.y)
         {
             
-            
             var currentNode = current
             while (typeof currentNode !== 'undefined')
             {
                     path.push({x:currentNode.x,y:currentNode.y})
                     currentNode=currentNode.parent
+                
     
             }
             path=path.reverse()
@@ -51,7 +50,7 @@ const Astar = {
             const ret = {path , visited}
             return ret
         }
-        const {open1 , grid1}=Astar.generateChildren(grid,current,close,open,endPoint,gridSize)
+        const {open1 , grid1}=Astar.generateChildren(grid,current,close,open,startPoint,endPoint,gridSize)
         open = open1
         grid = grid1
        
@@ -73,7 +72,7 @@ const Astar = {
       }
       return {min : min , idx : minIdx}
     },
-  generateChildren :  function (grid , current,close,open,endPoint,gridSize)
+  generateChildren :  function (grid , current,close,open,startPoint,endPoint,gridSize)
 {
     //    const children=[
     //      {dx : 0 , dy : 1 },{dx : 0 , dy : -1 }
@@ -89,13 +88,14 @@ const Astar = {
                
                const x = current.x+item.dx
                const y = current.y+item.dy
+           
             if (x<gridSize.h && y < gridSize.w && x>= 0 && y >= 0)
             {
                 const node = grid[x][y]
                 
                 if (Astar.isIn(close,node) || (node.type==='barrier'))
                 {
-                    
+
                     return 
                 }
               
@@ -109,7 +109,8 @@ const Astar = {
                         return
                     
                 }
-                node.parent=current
+            
+                  node.parent=current
                 open.push(node)
                 
             }   

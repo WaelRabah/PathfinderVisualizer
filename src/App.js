@@ -8,11 +8,11 @@ export default class App extends Component {
   state = { 
     grid: [], 
     mousePressed: false, 
-    startNode: { x: 0, y: 0 }, 
-    endNode: { x: 2, y: 29 } ,
+    startNode: { x: 13, y: 13 }, 
+    endNode: { x: 3, y: 10 } ,
     selectedAlgorithm : false ,
     path : [],
-    gridSize : {h : 18 , w : 40},
+    gridSize : {h : 14 , w : 30},
     visited : [] ,
     Algorithms : [{name :'A*' , object : Astar}],
     algoName : '',
@@ -70,7 +70,7 @@ export default class App extends Component {
     });
   };
   onDrag = () => {
-    this.setState({ mousePressed: false })
+    this.setState({ mousePressed: false, moveStart : false , moveEnd : false })
   }
   setAlgorithm = (algo) => {
     
@@ -85,23 +85,27 @@ export default class App extends Component {
     const {grid , startNode , endNode , moveStart , moveEnd , mousePressed} = this.state
     if (moveStart)
     {
-      var node = await document.getElementById(grid[startNode.x][startNode.y].id)
-      node.className='node'
-      await this.setState({startNode : {x: x , y: y}})
+   
+      grid[startNode.x][startNode.y].type=''
+      grid[x][y].type='start'
 
-      var node1 = await document.getElementById(grid[startNode.x][startNode.y].id)
-      node1.className='node start'
-      
+      this.setState({
+        grid: grid,
+        startNode : {x: x , y: y}
+      });
+      return
     }
     if (moveEnd)
     {
-      var node2 = await document.getElementById(grid[endNode.x][endNode.y].id)
-      node2.className='node'
-      await this.setState({endNode : {x: x , y: y}})
-
-      var node3 = await document.getElementById(grid[endNode.x][endNode.y].id)
-      node3.className='node end'
       
+      grid[endNode.x][endNode.y].type=''
+      grid[x][y].type='end'
+
+      this.setState({
+        grid: grid,
+        endNode : {x: x , y: y}
+      });
+      return
     }
     if (mousePressed) {
       
@@ -112,8 +116,8 @@ export default class App extends Component {
       this.setState({
         grid: grid,
       });
-
     }
+  
   };
   clearPath = ()=>{
     var {visited,grid} = this.state
@@ -166,7 +170,6 @@ export default class App extends Component {
   const  ret =await this.state.selectedAlgorithm.object.search(grid , grid[startNode.x][startNode.y],grid[endNode.x][endNode.y],this.state.gridSize)
     
     var {path,visited} = ret
-    
     this.setState(
       {
         path : path ,

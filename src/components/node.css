@@ -1,7 +1,7 @@
 :root
 {
     --main-color : #114064;
-    --a : 28px;
+    --a : 27px;
 }
 .node
 {
@@ -11,6 +11,37 @@
     align-items: center;
     cursor: auto;
     
+    
+    
+}
+@keyframes nodeAnimation {
+  from{
+   
+    
+    transform: scale(1.0);
+  }
+ 
+  to{
+
+   
+    transform: scale(1.2);
+  }
+}
+.node:hover
+{
+    height: var(--a);
+    width: var(--a);
+    border: solid 1px #dcdcdcf3 ;
+    align-items: center;
+    cursor: auto;
+    animation-name: nodeAnimation;
+    animation-duration: 0.1s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
     
     
 }
@@ -38,6 +69,7 @@
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
     animation-play-state: running;
+    cursor: pointer;
   
 }
 .start
@@ -91,7 +123,6 @@
 .path
 {
   background-color: #008c8c;
- 
   border: solid 1px #008c8c ;
   animation-name: pathAnimation;
   animation-duration: 0.1s;
