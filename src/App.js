@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import { Container, Box } from "@material-ui/core";
 import Grid from "./components/Grid";
 import Astar from './algorithms/A*'
+import Djikstra from "./algorithms/Djikstra";
 export default class App extends Component {
   state = { 
     grid: [], 
@@ -14,7 +15,7 @@ export default class App extends Component {
     path : [],
     gridSize : {h : 14 , w : 30},
     visited : [] ,
-    Algorithms : [{name :'A*' , object : Astar}],
+    Algorithms : [{name :'A*' , object : Astar},{name :'Djikstra' , object : Djikstra}],
     algoName : '',
     moveStart : false ,
     moveEnd : false
@@ -126,7 +127,7 @@ export default class App extends Component {
       if (node.type==='start')
       return
       grid[node.x][node.y].type=''
-      grid[node.x][node.y].parent=undefined
+      grid[node.x][node.y].parent=null
       const node1=document.getElementById(`${node.id}`)  
       node1.className='node'
     })
@@ -170,7 +171,7 @@ export default class App extends Component {
       }
     this.clearPath()
   const  ret =await this.state.selectedAlgorithm.object.search(grid , grid[startNode.x][startNode.y],grid[endNode.x][endNode.y],this.state.gridSize)
-    
+  
     var {path,visited} = ret
     this.setState(
       {

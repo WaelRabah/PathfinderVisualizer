@@ -1,8 +1,3 @@
-
-
-
-
-
 const Astar = {
     manhattanDistance : (A,B)=>
     {
@@ -39,7 +34,6 @@ const Astar = {
             {
                     path.push({x:currentNode.x,y:currentNode.y})
                     currentNode=currentNode.parent
-                    console.log(currentNode)
                 
     
             }
