@@ -30,7 +30,7 @@ const Astar = {
         {
             
             var currentNode = current
-            while (typeof currentNode !== 'undefined')
+            while (currentNode)
             {
                     path.push({x:currentNode.x,y:currentNode.y})
                     currentNode=currentNode.parent

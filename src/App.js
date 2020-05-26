@@ -162,6 +162,17 @@ export default class App extends Component {
     node2.className=`node end`
     this.setState({ grid: grid1 ,path : [] });
   }
+  clearParent = ()=>{
+    this.setState(
+      prev=>{
+        const {grid} = prev
+
+        grid.map(
+          row=>row.map(node=>{node.parent=undefined; return(node);})
+        )
+      }
+    )
+  }
   visualize =async ()=>{
     const {startNode , endNode , grid , selectedAlgorithm} = this.state
     if (!selectedAlgorithm)
@@ -179,9 +190,10 @@ export default class App extends Component {
         visited : visited
         
       }
-        
+       
     )
 this.animateVisited()
+this.clearParent()
 }
   animatePath = ()=>{
     
