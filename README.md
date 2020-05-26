@@ -1,7 +1,7 @@
 # PathfinderVisualizer
-For now it only features The A* pathfinding algorithm .
+For now it only features The A* and Djikstra pathfinding algorithm .
 ### Tools used in this project :
-  ReactJS , Hooks API , Css animations and transitions , Material-ui
+  ReactJS , Hooks API , Css animations and transitions , Material-ui but mostly custom css
 
 ### What I learned from this project :
   I understood all the concepts behind all the pathfinding algorithms and
