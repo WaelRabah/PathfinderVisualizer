@@ -12,7 +12,7 @@ export default class App extends Component {
     grid: [], 
     mousePressed: false, 
     startNode: { x: 0, y: 7 }, 
-    endNode: { x: 7, y: 12 } ,
+    endNode: { x: 7, y: 10 } ,
     selectedAlgorithm : false ,
     path : [],
     gridSize : {h : 14 , w : 30},
