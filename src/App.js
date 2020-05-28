@@ -11,8 +11,8 @@ export default class App extends Component {
   state = { 
     grid: [], 
     mousePressed: false, 
-    startNode: { x: 3, y: 7 }, 
-    endNode: { x: 3, y: 10 } ,
+    startNode: { x: 0, y: 7 }, 
+    endNode: { x: 7, y: 12 } ,
     selectedAlgorithm : false ,
     path : [],
     gridSize : {h : 14 , w : 30},
