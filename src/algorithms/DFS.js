@@ -1,68 +1,83 @@
-var grid1 = [];
-var x =0
-for (let i = 0; i < 16; i++) {
-  var a = [];
-  for (var j = 0; j < 16; j++) {
-    x++
-    a.push({
-      x: i,
-      y: j,
-      type: "",
-      id : x,
-      parent : undefined
-
-    });
-  }
-  grid1.push(a);
-}
-grid1[0][0].type = 'start'
-grid1[10][10].type = 'end'
-
-const grid = grid1
-
 const DFS = {
     visited : [] ,
     search:(grid , startPoint , endPoint , gridSize)=>{
-
+        DFS.visited=[]
         const children=[
-            {dx : 0 , dy : 1 },{dx : 0 , dy : -1 }
-           ,{dx : 1 , dy : 0 },{dx : -1 , dy : 0 }]
-    children.forEach(child=>{
-        var {x,y} = startPoint
-        const {dx , dy} = child
-        x=x+dx
-        y=y+dy
-        if (!(x<gridSize.h && y < gridSize.w && x>= 0 && y >= 0))
-        { return  }
-        const v = grid[x][y]
-        if (DFS.isIn(DFS.visited,v) )
-        { return  }
-        if ((v.x===endPoint.x && v.y === endPoint.y) || (DFS.dfsVisit(grid , v ,children,endPoint,gridSize)===true))
-        {   startPoint.parent = undefined
-            v.parent = startPoint
-            let path = []
-            x=endPoint.x
-            y=endPoint.y
+            {dx : -1 , dy : 0 },{dx : 0 , dy : 1 }
+          ,{dx : 1 , dy : 0 } ,{dx : 0 , dy : -1 }]
+           DFS.visited.push(startPoint)
+    for (let i =0 ; i<children.length ; i++)
+    {
+         const child = children[i]   
+         var {x,y} = startPoint
+         const {dx , dy} = child
+         x=x+dx
+         y=y+dy
+         if (!(x<gridSize.h && y < gridSize.w && x>= 0 && y >= 0))
+         { return  }
+         const v = grid[x][y]
+         if (v.type==='barrier')
+         {continue}
+         if (DFS.isIn(DFS.visited,v) )
+         { return  }
+     
+      
 
-            let current =  grid[x][y]
-            while (current)
-            {
-                path.push({x : current.x , y : current.y})
-
-                current = current.parent
-               
-            }
-            return({path : path , visited : DFS.visited})
-        }
-
-                v.parent = undefined
+         if ((v.x===endPoint.x && v.y === endPoint.y) )
+         {   DFS.visited.push(v)
+             startPoint.parent = undefined
+             v.parent = startPoint
+             let path = []
+             x=endPoint.x
+             y=endPoint.y
+ 
+             let current =  grid[x][y]
+             while (current)
+             {
+                 path.push({x : current.x , y : current.y})
+ 
+                 current = current.parent
                 
+             }
+             path=path.reverse()
+             path.splice(0,1)
+             path.splice(path.length -1 ,1)
+             const res = {path : path , visited : DFS.visited}
+             return(res)
+         }
+         else 
+         {
+            DFS.visited.push(v) 
+            const dfsvis = DFS.dfsVisit(grid , v ,children,endPoint,gridSize)
+            if (dfsvis)
+            {
+                startPoint.parent = undefined
+                v.parent = startPoint
+                let path = []
+                x=endPoint.x
+                y=endPoint.y
+    
+                let current =  grid[x][y]
+                while (current)
+                {
+                    path.push({x : current.x , y : current.y})
+    
+                    current = current.parent
+                   
+                }
+                path=path.reverse()
+                path.splice(0,1)
+                path.splice(path.length -1 ,1)
+                DFS.visited.splice(0,1)
+                DFS.visited.splice(DFS.visited.length  ,1)
+                const res = {path : path , visited : DFS.visited}
+                return(res)
+            }
+         }
+           
+    }
+
     return({path : [] , visited : DFS.visited})
-
-
-    })
-
-
     },
     dfsVisit :(grid , p ,children,endPoint,gridSize)=> {
         for (let i =0 ; i<children.length ; i++)
@@ -73,19 +88,32 @@ const DFS = {
              x=x+dx
              y=y+dy
  
- 
              if (!(x<gridSize.h && y < gridSize.w && x>= 0 && y >= 0))
              { continue  }
              const v = grid[x][y]
- 
+             if (v.type==='barrier')
+             {continue}
              if (DFS.isIn(DFS.visited,v) )
              { continue  }
-             if ((v.x===endPoint.x && v.y === endPoint.y) || (DFS.dfsVisit(grid , v ,children,endPoint,gridSize)===true))
+             
+             
+             if ((v.x===endPoint.x && v.y === endPoint.y) )
                  {
+                             
                      v.parent = p
                      return true
                  }
-                 DFS.visited.push(v)         
+                 else 
+                 {
+                    DFS.visited.push(v) 
+                    const dfsvis = DFS.dfsVisit(grid , v ,children,endPoint,gridSize)
+                    if (dfsvis)
+                    {
+                        v.parent = p
+                        return true  
+                    }
+                 }
+               
         }
             return false
     }
@@ -101,4 +129,4 @@ isIn : function  (l,node)
     return false
 }
 }
-console.log(DFS.search(grid,{x:0,y:0},{x:10,y:10},{h:16,w:16}))
+export default DFS

@@ -5,6 +5,8 @@ import { Container, Box } from "@material-ui/core";
 import Grid from "./components/Grid";
 import Astar from './algorithms/A*'
 import Djikstra from "./algorithms/Djikstra";
+import DFS from "./algorithms/DFS";
+
 export default class App extends Component {
   state = { 
     grid: [], 
@@ -15,10 +17,11 @@ export default class App extends Component {
     path : [],
     gridSize : {h : 14 , w : 30},
     visited : [] ,
-    Algorithms : [{name :'A*' , object : Astar},{name :'Djikstra' , object : Djikstra}],
+    Algorithms : [{name :'A*' , object : Astar},{name :'Djikstra' , object : Djikstra},{name :'DFS' , object : DFS}],
     algoName : '',
     moveStart : false ,
-    moveEnd : false
+    moveEnd : false,
+    animated : false
     
   };
   componentDidMount() {
@@ -181,8 +184,8 @@ export default class App extends Component {
           return
       }
     this.clearPath()
-  const  ret =await this.state.selectedAlgorithm.object.search(grid , grid[startNode.x][startNode.y],grid[endNode.x][endNode.y],this.state.gridSize)
-  
+  const  ret =await this.state.selectedAlgorithm.object.search(grid , startNode,endNode,this.state.gridSize)
+
     var {path,visited} = ret
     this.setState(
       {
@@ -267,7 +270,7 @@ this.clearParent()
             MouseUp={this.mouseUp}
             onDragHandler={this.onDrag}
           />
-
+        
         </Container>
       </Box>
     );
