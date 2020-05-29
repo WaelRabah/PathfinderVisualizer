@@ -14,12 +14,12 @@ const DFS = {
          x=x+dx
          y=y+dy
          if (!(x<gridSize.h && y < gridSize.w && x>= 0 && y >= 0))
-         { return  }
+         { continue  }
          const v = grid[x][y]
          if (v.type==='barrier')
          {continue}
          if (DFS.isIn(DFS.visited,v) )
-         { return  }
+         { continue  }
      
       
 
